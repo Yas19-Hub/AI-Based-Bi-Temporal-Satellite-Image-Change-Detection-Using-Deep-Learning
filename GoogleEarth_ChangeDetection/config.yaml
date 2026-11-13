@@ -1,0 +1,77 @@
+# Google Earth Historical Image Change Detection
+# All relative paths are resolved against this project directory.
+
+project:
+  name: "Google Earth Historical Image Change Detection"
+  years: [2019, 2024]          # first year is the alignment reference
+  tiles:
+    start: 1
+    end: 100                   # T001 ... T100
+  expected_dimensions: null    # optional, e.g. {width: 1920, height: 1080}
+
+paths:
+  raw_screenshots: raw_screenshots
+  metadata: metadata
+  processed: processed
+  aligned: processed/aligned
+  comparisons: processed/comparisons
+  change_maps: processed/change_maps
+  reports: reports
+  logs: logs
+  manifest: metadata/tile_manifest.csv
+  pair_summary: metadata/pair_summary.csv
+  manual_overrides: metadata/manual_overrides.csv
+  tile_registry: metadata/tile_registry.csv
+  review_status: metadata/review_status.csv
+  results_index: processed/results_index.json
+  tile_stats: processed/tile_stats.csv
+
+validation:
+  allowed_extensions: [".png", ".jpg", ".jpeg", ".webp", ".tif", ".tiff", ".bmp"]
+  min_width: 200
+  min_height: 200
+  max_file_size_mb: 100
+  skip_ambiguous_duplicates: true
+
+processing:
+  resize_mismatched: true
+  save_aligned: true
+  skip_existing: true
+  alignment:
+    enabled: true
+    method: auto              # auto | feature | ecc | none
+    max_features: 8000
+    min_inliers: 20
+    min_inlier_ratio: 0.15
+    min_overlap: 0.55
+    max_scale_change: 0.25
+    max_rotation_deg: 3.0
+    ratio_test: 0.75
+    ransac_threshold: 5.0
+    ecc_enabled: true
+    ecc_max_dimension: 1000
+    ecc_iterations: 200
+    ecc_epsilon: 0.00001
+    ecc_min_correlation: 0.5
+  diff:
+    pixel_threshold: 30
+    ssim_threshold: 0.85
+    combine_mode: and         # and | or
+    min_region_area: 150
+    morphology_kernel: 5
+    ssim_win_size: 7
+    max_annotated_regions: 40
+    exclude_border_px: 0
+    normalize_brightness: false
+    heatmap_percentile: 99.0
+
+dashboard:
+  default_pixel_threshold: 30
+  default_ssim_threshold: 0.85
+  display_max_width: 900
+  cache_ttl_seconds: 5
+
+logging:
+  level: INFO
+  max_bytes: 5242880
+  backup_count: 3
