@@ -1,7 +1,6 @@
 """Streamlit dashboard for reviewing paired screenshot comparisons."""
 
 from __future__ import annotations
-
 import io
 import json
 from dataclasses import replace
