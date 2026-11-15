@@ -27,7 +27,6 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-
 @st.cache_data(show_spinner=False, max_entries=6)
 def _align_cached(
     reference_path: str,
