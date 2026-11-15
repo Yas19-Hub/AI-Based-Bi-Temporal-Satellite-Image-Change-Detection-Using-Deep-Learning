@@ -232,7 +232,6 @@ def _overview(config: AppConfig, scan: ScanResult, index: dict[str, Any]) -> Non
     issue_cols[2].metric("Duplicate files", summary["duplicate_files"])
     issue_cols[3].metric("Unrecognized files", summary["unrecognized_files"])
     issue_cols[4].metric("Tiles with flags", index.get("summary", {}).get("flagged", 0))
-
     with st.expander("Configuration"):
         st.write(
             {
